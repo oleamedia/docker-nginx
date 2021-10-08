@@ -115,6 +115,7 @@ RUN set -x && \
       --add-module=nginx_cookie_flag_module \
   " && \
   \
+  ln -snf /user/share/zoneinfo/${TZ} /etc/localtime && echo ${TZ} > /etc/timezone && \
   cd /tmp && \
   wget -c https://hg.nginx.org/nginx-quic/archive/quic.tar.gz -O - | tar -xz && \
   mv nginx* nginx && \
@@ -164,14 +165,17 @@ RUN set -x && \
   | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
   )" && \
   mv /tmp/envsubst /usr/local/bin/ && \
+  apk add --no-cache --virtual .nginx-rundeps $runDeps && \
   ln -sf /dev/stdout /var/log/nginx/access.log && \
   ln -sf /dev/stderr /var/log/nginx/error.log && \
-  \
-  ln -snf /user/share/zoneinfo/${TZ} /etc/localtime && echo ${TZ} > /etc/timezone && \
-  apk add --no-cache --virtual .nginx-rundeps $runDeps && \
   apk del --no-network .build-deps && \
   apk del --no-network .gettext && \
   rm -rf /tmp/*
+
+# Copy config files.
+COPY nginx.conf /etc/nginx/
+COPY conf.d/* /etc/nginx/conf.d/
+RUN  chown -R nginx:nginx /etc/nginx/
 
 EXPOSE 80
 EXPOSE 443

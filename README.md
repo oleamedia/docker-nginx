@@ -28,11 +28,12 @@ FROM oleamedia/nginx:latest
 # Copy your certs.
 COPY ssl/* /etc/ssl/
 
-# Copy your configs.
+# Copy config files.
 COPY nginx.conf /etc/nginx/
 COPY conf.d/* /etc/nginx/conf.d/
 COPY sites-available/* /etc/nginx/sites-available/
 COPY sites-enabled/* /etc/nginx/sites-enabled/
+RUN  chown -R nginx:nginx /etc/nginx/
 ```
 
 H3 runs over UDP so, you will need to port map both TCP and UDP. Ex:
