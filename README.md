@@ -50,7 +50,7 @@ is a option for getting a free valid CA signed certificate.
 - HTTP/2 (with Server Push)
 - HTTP/2
 - BoringSSL (Google's flavor of OpenSSL)
-- RTMP 1.2.1
+- RTMP 1.2.2
 - TLS 1.3
 - Brotli compression
 - [headers-more-nginx-module](https://github.com/openresty/headers-more-nginx-module)

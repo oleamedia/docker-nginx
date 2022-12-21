@@ -1,11 +1,11 @@
 
-ARG ALPINE_VERSION=3.14
+ARG ALPINE_VERSION=3.17
 
 FROM alpine:${ALPINE_VERSION}
 
 LABEL maintainer="Oleamedia <info@oleamedia.com>"
 
-ARG NGINX_RTMP_VERSION=1.2.1
+ARG NGINX_RTMP_VERSION=1.2.2
 ARG REPO=dl-cdn
 ARG UID=101
 ARG GID=101
@@ -47,7 +47,6 @@ RUN set -x && \
       gcc \
       make \
       cmake \
-      gnupg1 \
       geoip \
       #libuuid \
       openssl-dev \
@@ -106,7 +105,6 @@ RUN set -x && \
       --with-file-aio \
       --with-http_v2_module \
       --with-http_v3_module \
-      --with-http_quic_module \
       --with-stream_quic_module \
       --add-module=nginx-rtmp \
       --add-module=ngx_brotli \
